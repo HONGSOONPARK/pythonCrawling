@@ -2,6 +2,8 @@
 
 import requests
 import time
+import pymysql
+
 
 from bs4 import BeautifulSoup
 
@@ -33,8 +35,11 @@ options.add_argument("disable-gpu")
 # 혹은 options.add_argument("--disable-gpu")
 options.add_argument('lang=ko_KR')    # 언어 설정
 
-driver = webdriver.Chrome('/home/hs/Python/chromedriver', chrome_options=options)
+driver = webdriver.Chrome('/home/hs/Python/py/chromedriver', chrome_options=options)
 driver.implicitly_wait(3)
+
+
+ 
 
 
 
@@ -51,13 +56,35 @@ try:    # 정상 처리
     test_data = driver.find_element_by_xpath('/html/body/div/div[1]/div/div/div/div[1]/div[1]/a')
 
     
-    print(test_data)
+
+
+    # MySQL Connection 연결
+    conn = pymysql.connect(host='localhost', user='testhong', password='1234',
+                        db='testhong', charset='utf8')
+    
+    # Connection 으로부터 Cursor 생성
+    curs = conn.cursor()
+    
+    # SQL문 실행
+    sql = "select * from list"
+    curs.execute(sql)
+    
+    # 데이타 Fetch
+    rows = curs.fetchall()
+    print(rows)     # 전체 rows
+    # print(rows[0])  # 첫번째 row: (1, '김정수', 1, '서울')
+    
+    
+    # Connection 닫기
+
+    print(test_data.text)
 
 except TimeoutException:    # 예외 처리
     print('타임아웃 발생')
 
 finally:    # 정상, 예외 둘 중 하나여도 반드시 실행
     driver.quit()
+    conn.close()
 
 
 
