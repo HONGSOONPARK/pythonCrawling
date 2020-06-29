@@ -3,7 +3,7 @@
 import requests
 import time
 import pymysql
-
+ 
 
 from bs4 import BeautifulSoup
 
@@ -11,11 +11,11 @@ from urllib.parse import quote_plus    # 한글 텍스트를 퍼센트 인코딩
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+
 from selenium.webdriver.support.ui import WebDriverWait   # 해당 태그를 기다림
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException    # 태그가 없는 예외 처리
-
-
+from selenium.webdriver.common.keys import Keys
 
 options = webdriver.ChromeOptions()
 options.add_argument('headless')
@@ -44,32 +44,76 @@ try:    # 정상 처리
     keyword = "공덕역 밥집"
     element.send_keys(keyword)
 
+    # 엔터키 입력
+    element.send_keys(Keys.ENTER)
+
+
     # 검색 버튼
-    element = driver.find_element_by_xpath("/html/body/div/div[2]/form/div[2]/div[1]/div[2]/div[2]/div[2]/center/input[1]")
-    element.click();
+    # element = driver.find_element_by_xpath('//*[@id="tsf"]/div[2]/div[1]/div[3]/center/input[1]')
+    # element.click();
 
     time.sleep(1)
 
     # 장소 더 보기 버튼
-    element = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[5]/div[2]/div[9]/div[1]/div[2]/div/div[2]/div[2]/div/div/div[1]/div/div[2]/div/div[4]/div[3]/div/div/a/div/span')))
+    element = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="rso"]/div[1]/div/div[2]/div/div[4]/div[3]/div/div/a/div/span')))
     element.click();
 
     time.sleep(5)
 
-    # 장소 리스트
-    box = driver.find_element_by_xpath('/html/body/div[4]/div[2]/div[8]/div[1]/div[2]/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[1]/div[4]')
-    # list = box.find_element_by_xpath('div') 
+
+    element = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="rllhd__fldhc"]/div/div/div/div/div[1]/div/div[1]/div')))
     
+    print('장소리스트 들어옴 : '+ element.text)
+    
+    print('장소리스트 들어옴 : '+ driver.current_url)
+
+    # 장소 리스트
+    #element = element.find_elements_by_xpath('//*[@id="rl_ist0"]/div[1]/div[4]/div')
+    
+    element = driver.current_url.find_element_by_xpath('//*[@id="rl_ist0"]/div[1]/div[4]/div[1]/div/div[2]/div/a/div/div[2]/div')
+    # list = box.find_element_by_xpath('//*[@id="rl_ist0"]/div[1]/div['++']/div[1]/div/div[2]/div/a/div') 
+    print(element.text)
     # for item in list :
     #     print(item.text)
     # print(len(list))
 
-    # print(len(list))
+    # print(len(element))
 
-        # index = 0
-        # for key in search_list:
-        #     index += 1
-        #     print(str(index) + ", " + key.text)    
+    
+    
+    index = 0
+    
+    # for p in body.find_elements_by_tag_name('div'):
+    #     print (p.text)
+
+
+    # while index < len(element) :
+    #     index += 1
+
+    #     lists = element[index].find_element_by_xpath('//div/div[2]/div/a/div/div[2]/div')
+
+    #     print (lists.text)
+        # for p in lists.find_element_by_xpath('div'):
+        #     print (p.text)
+        
+        #rl_ist0 > div.rl_tile-group > div.rlfl__tls.rl_tls > div:nth-child(1) > div > div.uMdZh.rl-qs-crs-t.mnr-c.rllt__local-item-selected > div > a > div > div.dbg0pd > div
+        # //*[@id="rl_ist0"]/div[1]/div[4]/div[1]/div/div[2]/div/a/div/div[2]/div
+        # for p in rs.find_element_by_xpath('a'):
+        #     print (p.text)
+        
+
+           
+    # print(len(list))
+        
+        
+
+
+        
+    # for key in box:
+    #     index += 1
+    #     box.find_element_by_xpath('//*[@id="rl_ist0"]/div[1]/div['+index+']/div[1]/div/div[2]/div/a/div') 
+    #     print(str(index) + ", " + key.text)    
+            
         # if index >= search_list.length:
         #     break
 
