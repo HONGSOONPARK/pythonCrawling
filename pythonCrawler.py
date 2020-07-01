@@ -55,34 +55,104 @@ try:    # 정상 처리
     time.sleep(1)
 
     # 장소 더 보기 버튼
-    element = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="rso"]/div[1]/div/div[2]/div/div[4]/div[3]/div/div/a/div/span')))
-    element.click();
+    element = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[5]/div[2]/div[9]/div[1]/div[2]/div/div[2]/div[2]/div/div/div[1]/div/div[2]/div/div[4]/div[3]/div/div/a/div/span')))
+    element.click()
 
     time.sleep(5)
 
 
     element = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="rllhd__fldhc"]/div/div/div/div/div[1]/div/div[1]/div')))
     
-    print('장소리스트 들어옴 : '+ element.text)
-    
-    print('장소리스트 들어옴 : '+ driver.current_url)
+    # print('장소리스트 들어옴 : '+ element.text)
+    # print('장소리스트 들어옴 : '+ driver.current_url)
 
     # 장소 리스트
-    #element = element.find_elements_by_xpath('//*[@id="rl_ist0"]/div[1]/div[4]/div')
+    element = driver.find_element_by_xpath('/html/body/div[4]/div[2]/div[8]/div[1]/div[2]/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[1]/div[4]')
     
-    element = driver.current_url.find_element_by_xpath('//*[@id="rl_ist0"]/div[1]/div[4]/div[1]/div/div[2]/div/a/div/div[2]/div')
-    # list = box.find_element_by_xpath('//*[@id="rl_ist0"]/div[1]/div['++']/div[1]/div/div[2]/div/a/div') 
-    print(element.text)
+
+    #element = driver.find_elements_by_xpath('//*[@id="rl_ist0"]/div[1]/div[4]/div')
+    # t1 = driver.find_element_by_xpath('/html/body/div[4]/div[2]/div[8]/div[1]/div[2]/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[1]/div[4]/div[5]/div/div[3]/div/a/div/div[2]/div')
+    #print(element.text)
+    
+
+    # wrap = driver.find_element_by_xpath('//*[@id="rl_ist0"]')
+   
+
+    print('============================================')
+    page_count = driver.find_elements_by_xpath('//*[@id="rl_ist0"]/div[1]/div[4]/div')
+
+    i = 0
+
+    while i < len(page_count) :
+        i += 1
+        
+
+        # test = 'div:nth-child(%d) > div > div.uMdZh.rl-qs-crs-t.mnr-c > div > a > div > div.dbg0pd > div' % i
+
+        txt =f'//*[@id="rl_ist0"]/div[1]/div[4]/div[{i}]'
+        
+        print(str(txt))
+        wrap = driver.find_element_by_xpath(txt)
+        wait_txt = WebDriverWait(wrap, 1)
+        print(wrap.text)
+
+        try:
+            tt = wait_txt.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div > div.uMdZh.rl-qs-crs-t.mnr-c > div > a > div > div.dbg0pd > div')))
+            print(tt.text)    
+        except Exception:
+            print('except')
+        finally:
+            print('============================================')    
+
+        
+        # store_div = wrap.find_element_by_css_selector(str(test))
+
+        # store_div = wait.until(EC.element_to_be_clickable((By.XPATH, str(txt))))
+        # store_div.click()
+
+        # store_title = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="akp_tsuid30"]/div/div[1]/div/div/div/div[1]/div/div[1]/div/div[1]/div/div[1]/div/div[1]/div/span')))
+        
+        # store_name = store_div.find_element_by_xpath('//*[@class="dbg0pd"]')
+        # if store_title is not None :
+        #     print(store_title.text)
+            
+        #rl_ist0 > div.rl_tile-group > div.rlfl__tls.rl_tls > div:nth-child(1) > div
+        # print(store_name.text)
+
+        time.sleep(1)
+
+
+
+        # st = wrap.find_element_by_css_selector('div:nth-child(2) > div > div.uMdZh.rl-qs-crs-t.mnr-c > div > a > div > div.dbg0pd > div')
+        # print(st.text)
+    
+
+    
+    
+    
+
+    # for buyer in element:
+    #     tt = buyer.find_element_by_xpath('//*[@id="rl_ist0"]/div[1]/div[4]/div[5]/div/div[3]/div/a/div/div[2]/div/text()[1]')
+    #     # if(tt is not None) :
+    #     print(tt.text)
+
+ 
+
+    #list = element.find_element_by_xpath('div[1]/div/div[2]/div/a/div') 
+    
+    # tt = element.find_element_by_css_selector('div:nth-child(1) > div > div.uMdZh.rl-qs-crs-t.mnr-c > div > a > div > div.dbg0pd > div')
+                        
+                        
+
+    # print(list.text)
     # for item in list :
     #     print(item.text)
     # print(len(list))
 
     # print(len(element))
-
-    
     
     index = 0
-    
+   
     # for p in body.find_elements_by_tag_name('div'):
     #     print (p.text)
 
