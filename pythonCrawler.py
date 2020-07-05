@@ -26,7 +26,7 @@ options.add_argument('headless')
 options.add_argument("disable-gpu") # 혹은 options.add_argument("--disable-gpu")
 
 options.add_argument('lang=ko_KR')    # 언어 설정
-driver = webdriver.Chrome('/home/hs/Python/py/chromedriver', chrome_options=options)
+driver = webdriver.Chrome('./chromedriver', chrome_options=options)
 driver.implicitly_wait(3)
 
 wait = WebDriverWait(driver, 10)
@@ -123,7 +123,8 @@ try:    # 정상 처리
     tag = type_name+'_'+datetime.today().strftime("%Y%m%d%H%M%S")
 
     driver.get('https://www.google.com/')
-    f = open("/home/hs/Python/py/log_"+tag+".txt", 'w', encoding="UTF8")
+
+    f = open("./log_"+tag+".txt", 'w', encoding="UTF8")
     f.write(tag+'\n')
 
     time.sleep(2) # 웹페이지를 불러오기 위해 2초 정지
