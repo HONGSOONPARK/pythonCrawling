@@ -276,6 +276,7 @@ except TimeoutException:    # 예외 처리
 finally:    # 정상, 예외 둘 중 하나여도 반드시 실행
     driver.quit()
     f.close()
+    conn.close()
 
 
 
